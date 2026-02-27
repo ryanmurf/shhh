@@ -4,7 +4,7 @@
 
 ## Supported Platforms
 
-- **Claude Code** (`~/.claude/` and variants like `~/.claude-hd`, `~/.claude-max`)
+- **Claude Code** (`~/.claude/` and variants like `~/.claude-dev`, `~/.claude-work`)
 - **OpenAI Codex CLI** (`~/.codex/` and variants)
 - **GitHub Copilot CLI** (`~/.copilot/`, `~/.config/github-copilot/`, and variants)
 
@@ -33,7 +33,7 @@
 - [x] False-positive reduction heuristics (placeholder detection, example key filtering)
 - [x] High-entropy string noise reduction (5-layer context-aware filtering — 99.8% noise reduction)
 - [x] Line-by-line streaming + 8x parallel concurrency (141s -> 16.7s)
-- [x] Variant directory auto-discovery (e.g., `~/.claude-hd`, `~/.claude-max`)
+- [x] Variant directory auto-discovery (e.g., `~/.claude-dev`, `~/.claude-work`)
 
 ## Phase 3 - Advanced Features
 

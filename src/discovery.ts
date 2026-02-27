@@ -22,12 +22,12 @@ interface DiscoverOptions {
 /**
  * Patterns to match variant directories in the home folder.
  * Each entry defines a prefix to match against dotfiles/dotdirs in $HOME,
- * so that non-standard folders like ~/.claude-hd, ~/.claude-max, ~/.codex-beta
+ * so that non-standard folders like ~/.claude-dev, ~/.claude-work, ~/.codex-beta
  * are automatically discovered alongside the standard ones.
  */
 interface PlatformPattern {
   platform: Platform;
-  /** Prefix to match (e.g., ".claude" matches ".claude", ".claude-hd", ".claude-max") */
+  /** Prefix to match (e.g., ".claude" matches ".claude", ".claude-dev", ".claude-work") */
   prefix: string;
   extensions: string[];
   /** Fixed paths that don't follow the prefix pattern (e.g., ~/.config/github-copilot) */
@@ -55,7 +55,7 @@ const PLATFORM_PATTERNS: PlatformPattern[] = [
 
 /**
  * Build platform configurations by scanning the home directory for
- * both standard and variant directories (e.g., .claude-hd, .claude-max).
+ * both standard and variant directories (e.g., .claude-dev, .claude-work).
  */
 function getPlatformConfigs(): PlatformConfig[] {
   const home = homedir();
@@ -70,7 +70,7 @@ function getPlatformConfigs(): PlatformConfig[] {
   }
 
   for (const pattern of PLATFORM_PATTERNS) {
-    // Match variant directories: .claude, .claude-hd, .claude-max, etc.
+    // Match variant directories: .claude, .claude-dev, .claude-work, etc.
     // Must start with the prefix, then either end or have a non-alphanumeric separator
     for (const entry of homeEntries) {
       if (

@@ -52,11 +52,11 @@ shhh scan --scored
 
 | Platform | Base Directory | Variants Auto-Discovered |
 |---|---|---|
-| **Claude Code** | `~/.claude/` | `~/.claude-hd`, `~/.claude-max`, `~/.claude-*` |
+| **Claude Code** | `~/.claude/` | `~/.claude-dev`, `~/.claude-work`, etc. |
 | **Codex CLI** | `~/.codex/` | `~/.codex-beta`, `~/.codex-*` |
 | **Copilot CLI** | `~/.copilot/`, `~/.config/github-copilot/` | `~/.copilot-*` |
 
-Variant directories are discovered automatically. Any directory in your home folder matching the platform prefix followed by a separator (`-`, `.`, `_`) is included. For example, `~/.claude-hd` and `~/.codex-nightly` are picked up without any configuration.
+Variant directories are discovered automatically. Any directory in your home folder matching the platform prefix followed by a separator (`-`, `.`, `_`) is included. For example, `~/.claude-dev` and `~/.codex-nightly` are picked up without any configuration.
 
 ## Commands
 

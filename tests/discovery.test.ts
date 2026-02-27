@@ -166,7 +166,7 @@ describe("discoverSessionFiles with real files", () => {
 
   // -----------------------------------------------------------------------
   // BUG-014: Variant directory matching must require a separator character
-  // e.g. .claudebot should NOT match, but .claude-hd, .claude_max,
+  // e.g. .claudebot should NOT match, but .claude-dev, .claude_work,
   // .claude.bak SHOULD match.
   // -----------------------------------------------------------------------
   it("should NOT match a directory like .claudebot (no separator after prefix)", () => {
@@ -194,7 +194,7 @@ describe("discoverSessionFiles with real files", () => {
   });
 
   it("should match variant directories with valid separators (-, ., _)", () => {
-    const variants = [".claude-hd", ".claude_max", ".claude.bak"];
+    const variants = [".claude-dev", ".claude_work", ".claude.bak"];
     for (const variant of variants) {
       const dir = path.join(tmpDir, variant);
       fs.mkdirSync(dir, { recursive: true });
