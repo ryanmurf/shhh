@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/ryanmurf/shhh"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
