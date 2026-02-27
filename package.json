@@ -1,5 +1,5 @@
 {
-  "name": "shhh",
+  "name": "shhh-scan",
   "version": "0.1.0",
   "description": "Scan AI coding assistant session files for leaked secrets",
   "type": "module",
