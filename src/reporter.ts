@@ -177,7 +177,7 @@ export function formatSarif(result: ScanResult): string {
         tool: {
           driver: {
             name: "shhh",
-            version: "0.1.0",
+            version: "0.1.1",
             informationUri: "https://github.com/shhh-scanner/shhh",
             rules: [],
           },

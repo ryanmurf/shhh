@@ -24,7 +24,7 @@ program
     "Scan AI coding assistant session files for leaked secrets. " +
       "Supports Claude Code, OpenAI Codex CLI, and GitHub Copilot CLI.",
   )
-  .version("0.1.0");
+  .version("0.1.1");
 
 program
   .command("scan")
@@ -316,7 +316,7 @@ program
   .command("version")
   .description("Show version information")
   .action(() => {
-    console.log("shhh v0.1.0");
+    console.log("shhh v0.1.1");
   });
 
 program.parse();

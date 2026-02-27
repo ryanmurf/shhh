@@ -194,6 +194,7 @@ export async function scanAll(options?: ScanOptions): Promise<ScanResult> {
     platformsSeen.add(platform);
   }
 
+  const isTTY = process.stderr.isTTY;
   let scanned = 0;
   const results = await parallelMap(
     sessionFiles,
@@ -201,9 +202,11 @@ export async function scanAll(options?: ScanOptions): Promise<ScanResult> {
     async ({ platform, filePath }) => {
       const findings = await scanFile(filePath, platform, scanState);
       scanned++;
-      process.stderr.write(
-        `  [${scanned}/${sessionFiles.length}] ${platform}: ${filePath.replace(/^.*\//, "")}\r`,
-      );
+      if (isTTY) {
+        process.stderr.write(
+          `\r  [${scanned}/${sessionFiles.length}] ${platform}: ${filePath.replace(/^.*\//, "").padEnd(60)}`,
+        );
+      }
       return findings;
     },
   );
@@ -212,7 +215,9 @@ export async function scanAll(options?: ScanOptions): Promise<ScanResult> {
     allFindings.push(...findings);
   }
 
-  process.stderr.write("\n");
+  if (isTTY) {
+    process.stderr.write("\n");
+  }
 
   // Filter out findings matching ignore rules after detection
   const filteredFindings = ignoreRules
@@ -254,6 +259,7 @@ export async function scanPlatform(
     `Scanning ${sessionFiles.length} ${platform} session files...\n`,
   );
 
+  const isTTY = process.stderr.isTTY;
   let scanned = 0;
   const results = await parallelMap(
     sessionFiles,
@@ -261,9 +267,11 @@ export async function scanPlatform(
     async ({ filePath }) => {
       const findings = await scanFile(filePath, platform, scanState);
       scanned++;
-      process.stderr.write(
-        `  [${scanned}/${sessionFiles.length}] ${filePath.replace(/^.*\//, "")}\r`,
-      );
+      if (isTTY) {
+        process.stderr.write(
+          `\r  [${scanned}/${sessionFiles.length}] ${filePath.replace(/^.*\//, "").padEnd(60)}`,
+        );
+      }
       return findings;
     },
   );
@@ -272,7 +280,9 @@ export async function scanPlatform(
     allFindings.push(...findings);
   }
 
-  process.stderr.write("\n");
+  if (isTTY) {
+    process.stderr.write("\n");
+  }
 
   // Filter out findings matching ignore rules after detection
   const filteredFindings = ignoreRules

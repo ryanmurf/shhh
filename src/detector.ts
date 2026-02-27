@@ -79,26 +79,27 @@ const SECRET_PATTERNS: SecretPattern[] = [
     pattern: /\b(?:api_key|apikey|api-key|API_KEY|APIKEY)\s*[=:]\s*["']?([A-Za-z0-9_\-]{16,})["']?/gi,
   },
 
-  // Private keys
+  // Private keys — require at least one line of base64 key body after the header
+  // to avoid matching code that merely references the PEM header string.
   {
     name: "RSA Private Key",
     severity: "critical",
-    pattern: /-----BEGIN RSA PRIVATE KEY-----/g,
+    pattern: /-----BEGIN RSA PRIVATE KEY-----[\s]*[A-Za-z0-9+/=]{20,}/g,
   },
   {
     name: "EC Private Key",
     severity: "critical",
-    pattern: /-----BEGIN EC PRIVATE KEY-----/g,
+    pattern: /-----BEGIN EC PRIVATE KEY-----[\s]*[A-Za-z0-9+/=]{20,}/g,
   },
   {
     name: "PGP Private Key",
     severity: "critical",
-    pattern: /-----BEGIN PGP PRIVATE KEY BLOCK-----/g,
+    pattern: /-----BEGIN PGP PRIVATE KEY BLOCK-----[\s]*[A-Za-z0-9+/=]{20,}/g,
   },
   {
     name: "Generic Private Key",
     severity: "critical",
-    pattern: /-----BEGIN PRIVATE KEY-----/g,
+    pattern: /-----BEGIN PRIVATE KEY-----[\s]*[A-Za-z0-9+/=]{20,}/g,
   },
 
   // Database connection strings
@@ -269,7 +270,9 @@ function extractContext(
   const prefix = start > 0 ? "..." : "";
   const suffix = end < content.length ? "..." : "";
 
-  return prefix + before + redact(matched) + after + suffix;
+  const raw = prefix + before + redact(matched) + after + suffix;
+  // Strip control characters (except space) that can break JSON serialization
+  return raw.replace(/[\x00-\x1f\x7f]/g, (ch) => (ch === "\t" ? " " : ""));
 }
 
 /**

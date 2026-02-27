@@ -1,6 +1,6 @@
 {
   "name": "shhh-scan",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scan AI coding assistant session files for leaked secrets",
   "type": "module",
   "bin": {

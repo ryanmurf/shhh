@@ -230,6 +230,26 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDZ
     expect(findings.length).toBeGreaterThanOrEqual(1);
   });
 
+  // BUG-019: PEM header strings in code that processes PEM data should not match
+  it("should NOT detect bare PEM header strings without key body", () => {
+    const content = `String stripped = pem.replace("-----BEGIN RSA PRIVATE KEY-----", "")
+                .replace("-----END RSA PRIVATE KEY-----", "")`;
+    const findings = detect(content);
+    const pk = findings.find((f) =>
+      f.secretType.toLowerCase().includes("private key")
+    );
+    expect(pk).toBeUndefined();
+  });
+
+  it("should NOT detect PEM header in a condition check", () => {
+    const content = `if (line.startsWith("-----BEGIN PRIVATE KEY-----")) { parsePem(line); }`;
+    const findings = detect(content);
+    const pk = findings.find((f) =>
+      f.secretType.toLowerCase().includes("private key")
+    );
+    expect(pk).toBeUndefined();
+  });
+
   it("should mark private keys as critical severity", () => {
     const content = `-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEA0Z3VS5JJcds3xfn/ygWyF8PbnGy0AHB7Mhg
