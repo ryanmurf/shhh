@@ -1,0 +1,42 @@
+{
+  "name": "shhh",
+  "version": "0.1.0",
+  "description": "Scan AI coding assistant session files for leaked secrets",
+  "type": "module",
+  "bin": {
+    "shhh": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "secrets",
+    "security",
+    "scanning",
+    "claude",
+    "codex",
+    "copilot",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "minimatch": "^10.2.4"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^5.1.2",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

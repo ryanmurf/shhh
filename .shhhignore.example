@@ -1,0 +1,43 @@
+# .shhhignore - Ignore rules for shhh secret scanner
+#
+# Place this file as .shhhignore in your project root or in ~/.config/shhh/.shhhignore
+# for global rules. Both locations are loaded and merged.
+#
+# Format: one rule per line.
+# Blank lines and lines starting with # are ignored.
+
+# -------------------------------------------------------------------------
+# Literal strings
+# -------------------------------------------------------------------------
+# If a literal string appears in a finding's match or context, skip it.
+# Useful for known-safe tokens or test fixtures.
+#
+# ghp_abc123exampleTestToken
+# AKIAIOSFODNN7EXAMPLE
+
+# -------------------------------------------------------------------------
+# Secret type prefixes (type:)
+# -------------------------------------------------------------------------
+# Skip all findings whose secretType starts with the given prefix.
+# Case-insensitive matching.
+#
+# type:High-Entropy
+# type:Generic API Key
+# type:JWT
+
+# -------------------------------------------------------------------------
+# File path globs (file:)
+# -------------------------------------------------------------------------
+# Skip files whose absolute path matches the glob pattern.
+# Uses standard glob syntax (** for recursive match).
+#
+# file:**/test-fixtures/**
+# file:**/archived_sessions/**
+# file:**/*.test.json
+
+# -------------------------------------------------------------------------
+# Platform exclusions (platform:)
+# -------------------------------------------------------------------------
+# Skip an entire platform's findings. Valid values: claude, codex, copilot.
+#
+# platform:copilot
